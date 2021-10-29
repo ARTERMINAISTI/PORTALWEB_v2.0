@@ -14,12 +14,14 @@ export default function Layout(props:LayoutProps){
 
     return(
 
-        <div className = {`flex h-screen w-screen`} 
+        <div className = {`dark flex h-screen w-screen`} 
          >
           <MenuLateral />
-          <div className ={` dark flex flex-col w-full
-                          bg-gray-200
-                           p-7`}>
+          <div className ={`  flex flex-col w-full
+                          AzulPadrao
+                          justify-items-center
+                          items-center
+                           h-20`}>
             <Cabecalho 
           
             titulo = {props.titulo}  subtitulo = {props.subtitulo}

@@ -4,7 +4,7 @@ import Logo from "./Logo";
 
 export default function MenuLateral(){
     return (
-     <aside className = {`bg-blue-900 flex flex-col
+     <aside className = {`AzulPadrao flex flex-col
      `}> 
         <div className = {`
         

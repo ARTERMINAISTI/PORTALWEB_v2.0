@@ -14,7 +14,7 @@ export default function Cabecalho(props:CabecalhoProps){
     return(
 
         <div 
-        className = {`bg-blue-800 `}>
+        className = {` `}>
          <Titulo titulo = {props.titulo} subtitulo={props.subtitulo}/>
         </div>
     )
