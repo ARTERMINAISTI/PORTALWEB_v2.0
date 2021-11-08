@@ -4,19 +4,39 @@ import { Warning } from "../components/Icons/Index";
 import AreaSocial from "../components/template/AreaSocial";
 import MensagemErroGenerica from "../components/template/MensagemErroGenerica";
 import Servicos from "../components/template/Servicos";
-
+import AuthValidation from '../util/validation/AuthValidation'
+import api from '../services/api'
+import message from '../components/message'
+import { ToastContainer } from "react-toastify";
 export default function autenticacao() {
    const [erro , SetErro] = useState(null)
    const [user,setUser] = useState('')
    const [senha,setSenha] = useState('')
-   function exibirErro(msg,tempo = 5) {
-    SetErro(msg)
-     setTimeout(() => SetErro(null),tempo *1000)
-   }
+  
 
-   function submeter () {
-          console.log ('Login')
-          exibirErro('Ocorreu um Erro ')
+   async function HandleSubmit () {
+     const data = {user , senha};
+     let validation = await AuthValidation(data);
+      if(validation){
+        await api.post('/user')
+        .then( (response)=>{
+          message(response);
+        }).catch((error)=>{
+          message(error.response,'error');
+         console.log (error);
+        })
+       
+      } else {
+        message ("Preecha uma senha de 6 caracteres",'error')
+      }
+    /*await api.post('/user')
+       .then( (response)=>{
+         console.log(response);
+       }).catch((error)=>{
+        console.log (error);
+       })
+     
+        */
    }
   return (
     <div className = "flex items-center h-screen justify-center m-0  ">
@@ -52,6 +72,7 @@ export default function autenticacao() {
    
 
       </h1>
+      <ToastContainer/>
        <AuthInput 
           label = "User"
           tipo = "text"
@@ -68,7 +89,7 @@ export default function autenticacao() {
           obrigatorio
        />
        <div className={"flex flex-col items-center"}> 
-                <button onClick= {submeter}
+                <button onClick= {HandleSubmit}
                 className = {`w-200 AzulPadrao transition duration-500 ease-in-out bg-blue-900 hover:bg-indigo-500 transform hover:-translate-y-1 hover:scale-100
                 rounded-lg px-5 py-1 mt-6
                 text-white
